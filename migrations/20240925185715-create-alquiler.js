@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Alquilers', {
+    await queryInterface.createTable('alquiler', { // Nombre de la tabla en singular
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,7 +18,7 @@ module.exports = {
       clienteId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Clientes',
+          model: 'clientes', // debe coincidir con el nombre de la tabla de clientes
           key: 'id'
         },
         onUpdate: 'CASCADE'
@@ -26,7 +26,7 @@ module.exports = {
       autoId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Autos',
+          model: 'autos', // debe coincidir con el nombre de la tabla de autos
           key: 'id'
         },
         onUpdate: 'CASCADE'
@@ -42,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Alquilers');
+    await queryInterface.dropTable('alquiler'); // Nombre en singular, debe coincidir
   }
 };

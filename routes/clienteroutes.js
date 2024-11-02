@@ -3,8 +3,10 @@ const router = express.Router();
 
 const clienteController = require('../controller/clientecontroller');
 
+// Ruta para registrar un nuevo cliente
+router.post('/', clienteController.registrarCliente);
 
-router.post('/clientes',clienteController.registrarCliente)
-router.get('/clientes',clienteController.verclientes)
+// Ruta para obtener todos los clientes
+router.get('/', clienteController.verclientes);
 
-module.exports = router
+module.exports = router;

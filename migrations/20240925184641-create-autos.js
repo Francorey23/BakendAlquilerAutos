@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Autos', {
+    await queryInterface.createTable('autos', { // Cambiado a minúsculas
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +15,7 @@ module.exports = {
       modelo: {
         type: Sequelize.STRING
       },
-      año: {
+      anio: {
         type: Sequelize.STRING
       },
       disponibilidad: {
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Autos');
+    await queryInterface.dropTable('autos'); // Cambiado a minúsculas
   }
 };

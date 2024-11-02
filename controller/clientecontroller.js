@@ -1,20 +1,24 @@
-const {Cliente} = require('../models')
+// controller/clientecontroller.js
 
-exports.registrarCliente = async (req,res) => {
-    const {nombre,correo,numLic} = req.body
-    try {
-        const C = await Cliente.create({nombre,correo,numLic})
-        res.json(C)
-    } catch (e) {
-        res.json({ mensaje: "error"})
-    }
-}
+const { Cliente } = require('../models');
 
-exports.verclientes = async (req , res) => {
-    try {
-        const resultado = await Cliente.findAll()
-        res.json(resultado)
-    } catch (e) {
-        res.json({ mensjae: "error"})
-    }
-}
+exports.registrarCliente = async (req, res) => {
+  try {
+    const { nombre, correo, numLic } = req.body;
+    const nuevoCliente = await Cliente.create({ nombre, correo, numLic });
+    res.status(201).json(nuevoCliente);
+  } catch (error) {
+    console.error("Error al crear el cliente:", error);
+    res.status(500).json({ mensaje: "Error al crear el cliente", error: error.message });
+  }
+};
+
+exports.verclientes = async (req, res) => {
+  try {
+    const clientes = await Cliente.findAll();
+    res.json(clientes);
+  } catch (error) {
+    console.error("Error al obtener los clientes:", error);
+    res.status(500).json({ mensaje: "Error al obtener los clientes", error: error.message });
+  }
+};

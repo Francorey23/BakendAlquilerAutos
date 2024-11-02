@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const alquilerController = require('../controller/alquilercontroller');
 
-router.post('/alquileres',alquilerController.realizarAlquiler)
-router.get('/alquileres/historial',alquilerController.historial)
+// Ruta para registrar un nuevo alquiler
+router.post('/', alquilerController.realizarAlquiler);
 
-module.exports = router
+// Ruta para obtener el historial de alquileres
+router.get('/historial', alquilerController.historial);
+
+module.exports = router;

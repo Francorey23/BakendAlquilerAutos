@@ -7,19 +7,22 @@ exports.autosDisponibles = async (req, res) => {
         });
         res.json(autos);
     } catch (e) {
-        res.json({ mensaje: "error"});
+        res.json({ mensaje: "error" });
     }
 };
 
-exports.registrarAuto = async (req,res) => {
-    const {marca,modelo,año,disponibilidad} = req.body
-    console.log(disponibilidad)
-    const disponibilidadInt = disponibilidad ? 1 : 0
+exports.registrarAuto = async (req, res) => {
+    const { marca, modelo, anio, disponibilidad } = req.body; // Cambié 'año' a 'anio' para que coincida
     try {
-        const A = await Autos.create({marca,modelo,año,disponibilidad: disponibilidadInt})
-        
-        res.json(A)
-       
+        // Si 'disponibilidad' está presente en el cuerpo, úsalo, de lo contrario, omítelo
+        const autoData = { marca, modelo, anio };
+        if (disponibilidad !== undefined) {
+            autoData.disponibilidad = disponibilidad;
+        }
+
+        const nuevoAuto = await Autos.create(autoData);
+        res.json(nuevoAuto);
+
     } catch (e) {
         console.error('Error al crear el auto:', e); 
         res.status(500).json({ mensaje: "Error al crear el auto", error: e.message });
