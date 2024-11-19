@@ -4,8 +4,8 @@ const { Cliente } = require('../models');
 
 exports.registrarCliente = async (req, res) => {
   try {
-    const { nombre, correo, numLic } = req.body;
-    const nuevoCliente = await Cliente.create({ nombre, correo, numLic });
+    const { nombre, correo, numLic,password } = req.body;
+    const nuevoCliente = await Cliente.create({ nombre, correo, numLic, password });
     res.status(201).json(nuevoCliente);
   } catch (error) {
     console.error("Error al crear el cliente:", error);
