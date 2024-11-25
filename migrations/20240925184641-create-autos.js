@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('autos', { // Cambiado a minúsculas
+    await queryInterface.createTable('autos', { 
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,6 +14,12 @@ module.exports = {
       },
       modelo: {
         type: Sequelize.STRING
+      },
+      imagen: {
+        type: Sequelize.STRING
+      },
+      valorAlquiler: {
+        type: Sequelize.FLOAT
       },
       anio: {
         type: Sequelize.STRING
