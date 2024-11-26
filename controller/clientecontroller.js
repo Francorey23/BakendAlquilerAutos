@@ -14,8 +14,8 @@ const { Cliente } = require('../models');
       }
   
       // Verificar la contraseña
-      const passwordValido = password === cliente.password; 
-      //const passwordValido = await bcrypt.compare(password, cliente.password);
+      //const passwordValido = password === cliente.password; 
+      const passwordValido = await bcrypt.compare(password, cliente.password);
 
       
       if (!passwordValido) {
