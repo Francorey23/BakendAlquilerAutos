@@ -40,7 +40,7 @@ exports.historial = async (req, res) => {
                   attributes: ['nombre', 'correo', 'numLic'] },
                 { model: Autos,
                   as: 'autos', 
-                  attributes: ['marca', 'modelo', 'año'] } 
+                  attributes: ['marca', 'modelo', 'imagen', 'valorAlquiler', 'anio'] } 
             ]
         });
         res.json(alquileres);
