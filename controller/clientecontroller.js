@@ -1,5 +1,4 @@
-// controller/clientecontroller.js
-
+const bcrypt = require('bcrypt');
 const { Cliente } = require('../models');
 
  exports.loginCliente = async (req, res) => {
@@ -34,7 +33,8 @@ const { Cliente } = require('../models');
 exports.registrarCliente = async (req, res) => {
   try {
     const { nombre, correo, numLic, password } = req.body;
-    const nuevoCliente = await Cliente.create({ nombre, correo, numLic, password });
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 es el número de salt rounds
+    const nuevoCliente = await Cliente.create({ nombre, correo, numLic, password: hashedPassword });
     res.status(201).json(nuevoCliente);
   } catch (error) {
     console.error("Error al crear el cliente:", error);
