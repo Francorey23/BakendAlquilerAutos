@@ -1,33 +1,35 @@
 const bcrypt = require('bcrypt');
 const { Cliente } = require('../models');
 
- exports.loginCliente = async (req, res) => {
-    try {
-      const { correo, password } = req.body;
-  
-      // Buscar al cliente por correo
-      const cliente = await Cliente.findOne({ where: { correo } });
-  
-      if (!cliente) {
-        return res.status(404).json({ mensaje: "Cliente no encontrado" });
-      }
-  
-      // Verificar la contraseña
-      //const passwordValido = password === cliente.password; 
-      const passwordValido = await bcrypt.compare(password, cliente.password);
+exports.loginCliente = async (req, res) => {
+  try {
+    const { correo, password } = req.body;
 
-      
-      if (!passwordValido) {
-        return res.status(401).json({ mensaje: "Contraseña incorrecta" });
-      }
-  
-      // Responder con éxito
-      res.status(200).json({ mensaje: "Inicio de sesión exitoso", cliente });
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      res.status(500).json({ mensaje: "Error al iniciar sesión", error: error.message });
+    const cliente = await Cliente.findOne({ where: { correo } });
+
+    if (!cliente) {
+      return res.status(401).json({ mensaje: "Usuario no encontrado" });
     }
-  }; 
+
+    // Comparar la contraseña ingresada con la almacenada encriptada
+    const passwordMatch = await bcrypt.compare(password, cliente.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ mensaje: "Contraseña incorrecta" });
+    }
+
+    // Si la contraseña es correcta, responde con los datos del cliente
+    res.json({ success: true, mensaje: "Inicio de sesión exitoso", cliente });
+
+  } catch (error) {
+    console.error("Error en el inicio de sesión:", error);
+    res.status(500).json({ mensaje: "Error en el servidor", error: error.message });
+  }
+};
+
+    
+  
+ 
 
   ////////////////////////////
 exports.registrarCliente = async (req, res) => {

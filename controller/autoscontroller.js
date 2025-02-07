@@ -8,7 +8,7 @@ exports.autosDisponibles = async (req, res) => {
         res.json(autos);
     } catch (e) {
         res.json({ mensaje: "error" });
-    }
+    } 
 };
 
 exports.registrarAuto = async (req, res) => {
