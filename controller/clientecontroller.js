@@ -29,13 +29,15 @@ exports.loginCliente = async (req, res) => {
 
     
   
- 
 
   ////////////////////////////
 exports.registrarCliente = async (req, res) => {
   try {
     const { nombre, correo, numLic, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 es el número de salt rounds
+    const hashedPassword = password.startsWith("$2b$")
+  ? password
+  : await bcrypt.hash(password, 10);
+
     const nuevoCliente = await Cliente.create({ nombre, correo, numLic, password: hashedPassword });
     res.status(201).json(nuevoCliente);
   } catch (error) {
