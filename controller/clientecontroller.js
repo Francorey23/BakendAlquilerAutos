@@ -10,7 +10,9 @@ exports.loginCliente = async (req, res) => {
     if (!cliente) {
       return res.status(401).json({ mensaje: "Usuario no encontrado" });
     }
-
+    if (!cliente.password.startsWith("$2b$")) {
+      return res.status(400).json({ mensaje: "Error en el formato de contraseña" });
+    }
     // Comparar la contraseña ingresada con la almacenada encriptada
     const passwordMatch = await bcrypt.compare(password, cliente.password);
 
